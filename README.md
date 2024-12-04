@@ -1,71 +1,50 @@
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+# dev-time
 
-# Project Title:  CLI-based CRUD
-Using a command-line interface, you'll be able to create and delete projects, log the time spent on tasks, and view a summary of the total hours dedicated to each project.
+Keep track of the time you spend on your projects.
 
+## Installation
 
-The final application will behave like this:
+Using `pip`:
+
 ```sh
-    $ dev-time create-project "Project 1"
-    $ dev-time create-project "Project 2"
-    $ dev-time log-time "Project 1" "2h"
-    OK! Logged 120 minutes for Project 1
-    $ dev-time log-time "Project 2" "50m"
-    OK! Logged 50 minutes for Project 2
-    $ dev-time summary
-    Total time logged:
-    Project 1: 2h
-    Project 2: 50min
-    $ dev-time delete-project "Project 1"
-    $ dev-time snapshot "projects.csv"
-    OK! Snapshot saved to projects.csv
+$ python -m pip install dev-time
 ```
 
+During development, you can install the package in editable mode with the following commands:
 
-## Setup
-### 1. Install Dependencies:
-
-Ensure Python is installed.
-
-
-### 2. Install required packages:
-
-``` sh 
-$ pip install -r requirements.txt
-```
-and for developing (tests and contributing), execute
-``` sh 
-$ pip install -r requirements.txt
+```sh
+$ python -m pip install -e .
 ```
 
-### 3. Environment Variables:
+## Usage
 
+```sh
+$ dev-time --help
 
-Create a `.env` file based on the `env.template` file provided in the project.
+ Usage: dev-time [OPTIONS] COMMAND [ARGS]...
 
-
-#### Define the following variables:
-
-- DB_USER=<your_db_user>
-- DB_PASSWORD=<your_db_password>
-- DB_HOSTNAME=<your_db_hostname>
-- DB_SID=<your_db_sid>
-- DB_PORT=<your_port>
-
-### Image PostreSQL 
-Postre:
-``` sh 
-    $ docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=departements -p 5432:5432 postgres
-
+╭─ Commands ────────────────────────────────────────╮
+│ create-project   Create a new project.                                       │
+│ delete-project   Delete a project.                                           │
+│ log-time         Log time spent on a project.                                │
+│ summary          View a summary of all projects and their total logged time. │
+│ snapshot         Export the project data to a CSV file.                      │
+╰───────────────────────────────────────────────╯
+$ dev-time create-project SWARM
+OK! Project 'SWARM' created successfully.
+$ dev-time create-project "Data Spaces"
+OK! Project 'Data Spaces' created successfully.
+$ dev-time log-time "Data Spaces" 1h
+OK! Logged 60 minutes for 'Data Spaces'.
+$ dev-time summary
+┏━━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
+┃ Project name          ┃ Time logged          ┃
+┡━━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
+│ SWARM                 │ 0m                   │
+│ Data Spaces           │ 1h 0m                │
+└──────────────┴─────────────┘
+$ dev-time delete-project "Data Spaces"
+OK! Project 'Data Spaces' deleted successfully. 💥
+$ dev-time delete-project "Data Spaces"
+Error: Project 'Data Spaces' not found.
 ```
-
-## Execute the script:
-Use 
-``` sh 
-python 
-```
-
-
-## LICENSE: MIT License file.
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
